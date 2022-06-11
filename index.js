@@ -3,6 +3,7 @@ const cors = require('cors');
 const app = express();
 const jwt = require('jsonwebtoken');
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const { query } = require('express');
 
 require('dotenv').config()
 
@@ -31,6 +32,13 @@ async function run(){
         res.send({token})
 
     })
+    app.get('/products', async(req , res)=>{
+        const query = {};
+        const products = await productCollection.find(query).toArray()
+        res.send(products);
+    })
+
+    // app.post('/addorder')
 
 
     app.post('/uploadpd', async(req , res)=>{
